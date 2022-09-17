@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>One to one Video chat</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div id="app">
+
+      <div class="tabs">
+        <div class="tablinks">
+          <button id="tab1" class="tablink active"> Call</button>
+          <button id="tab2" class="tablink">Join</button>
+        </div>
+
+        <div id="tab1" class="tabcontent active">
+          <h2>Make a Call</h2>
+          <button id="callButton">call</button>
+          <input type="text" id="callInput" />
+
+          <h3>Join video</h3>
+          <button id="showVideoButton">join</button>
+        </div>
+
+        <div id="tab2" class="tabcontent">
+          <h2>Join a call</h2>
+          <input type="text" id="JoinInput" />
+          <button id="joinButton">join</button>
+        </div>
+
+        <div id="videos" class="videos">
+          <video id="localVideo" autoplay muted></video>
+          <video id="remoteVideo" autoplay></video>
+
+          <div class="buttons">
+            <button id="muteButton">mute</button>
+            <button id="hangupButton">Hang Up</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+
+</html>
