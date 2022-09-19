@@ -1,4 +1,4 @@
-import './webRtc'
+import './webRtc.js'
 
 const tabLinks = document.getElementsByClassName("tablink");
 
