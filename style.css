@@ -48,6 +48,7 @@
   width: 50%;
 }
 
+
 .tablink.active,
 .tablink:hover {
   background-color: rgba(44, 44, 44, .5);
