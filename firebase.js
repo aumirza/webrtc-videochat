@@ -6,12 +6,12 @@ import { getFirestore } from '@firebase/firestore'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDtRlR3CUykjxCbu02qyeOiX-f4lj3JLfM",
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    appId: import.meta.env.VITE_FIREBASE_API_ID,
     authDomain: "webrtc-video-bde1d.firebaseapp.com",
     projectId: "webrtc-video-bde1d",
     storageBucket: "webrtc-video-bde1d.appspot.com",
-    messagingSenderId: "1036813658799",
-    appId: "1:1036813658799:web:2bcaf909dbb205f5b0425a"
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
 };
 
 // Initialize Firebase
