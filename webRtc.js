@@ -12,25 +12,11 @@ const servers = {
 
 const pc = new RTCPeerConnection(servers)
 
-let localStream = null
-let remoteStream = null
-
-
-const callButton = document.getElementById('callButton')
-const callInput = document.getElementById('callInput')
-
-const JoinInput = document.getElementById('JoinInput')
-const joinButton = document.getElementById('joinButton')
-
-const hangupButton = document.getElementById('hangupButton')
-
-const showVideoButton = document.getElementById('showVideoButton')
+export let localStream = null
+export let remoteStream = null
 
 const localVideo = document.getElementById('localVideo')
 const remoteVideo = document.getElementById('remoteVideo')
-
-const videos = document.getElementById('videos')
-
 
 const addStreams = async () => {
   localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -44,13 +30,9 @@ const addStreams = async () => {
   remoteVideo.srcObject = remoteStream
 }
 
-const showVideo = async () => {
-  videos.style.display = 'block'
-}
-
 
 // Create a call in firestore
-const initialiseCall = async () => {
+export const initialiseCall = async (onAnswer) => {
   remoteStream = new MediaStream()
   await addStreams();
   pc.ontrack = event => {
@@ -61,8 +43,6 @@ const initialiseCall = async () => {
   const callDocRef = doc(collection(firestore, 'calls'))
   const offerCandidates = collection(firestore, callDocRef.path, 'offerCandidates')
   const answerCandidates = collection(firestore, callDocRef.path, 'answerCandidates')
-
-  callInput.value = callDocRef.id
 
   // listen to offer candidate and add to firestore
   pc.onicecandidate = event => {
@@ -83,6 +63,7 @@ const initialiseCall = async () => {
     if (!pc.currentRemoteDescription && data?.answer) {
       const answerDescription = new RTCSessionDescription(data.answer)
       await pc.setRemoteDescription(answerDescription)
+      onAnswer && onAnswer()
     }
   })
 
@@ -95,11 +76,12 @@ const initialiseCall = async () => {
       }
     })
   })
+
+  return callDocRef.id
 }
 
-const joinCall = async () => {
-  initialiseCall()
-  const callId = JoinInput.value
+
+export const connectCall = async (callId) => {
   const collDocRef = doc(firestore, 'calls', callId)
   const answerCandidates = collection(firestore, collDocRef.path, 'answerCandidates')
   const offerCandidates = collection(firestore, collDocRef.path, 'offerCandidates')
@@ -130,29 +112,10 @@ const joinCall = async () => {
       }
     })
   })
-  showVideo()
+
+  return callId
 }
 
-const hangupCall = () => {
-  pc.close()
-  localStream.getTracks().forEach(track => {
-    track.stop()
-  })
-  remoteStream.getTracks().forEach(track => {
-    track.stop()
-  })
-  localVideo.srcObject = null
-  remoteVideo.srcObject = null
-  callInput.value = ''
-  JoinInput.value = ''
-  videos.style.display = 'none'
-}
-
-
-showVideoButton.onclick = showVideo
-callButton.onclick = initialiseCall
-joinButton.onclick = joinCall
-hangupButton.onclick = hangupCall
 
 
 

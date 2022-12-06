@@ -12,38 +12,56 @@
   <body>
     <div id="app">
 
-      <div class="tabs">
-        <div class="tablinks">
-          <button id="tab1" class="tablink active"> Call</button>
-          <button id="tab2" class="tablink">Join</button>
+      <div class="box">
+
+        <!-- Cta buttons -->
+        <div id="actionButtons">
+          <button class="cta" id="callButton">Make a call</button>
+          <button class="cta" id="showJoinButton">Join a call</button>
         </div>
 
-        <div id="tab1" class="tabcontent active">
-          <h2>Make a Call</h2>
-          <button id="callButton">call</button>
-          <input type="text" id="callInput" />
+        <!-- make call  -->
+        <div style="display: none;" id="callBox">
 
-          <h3>Join video</h3>
-          <button id="showVideoButton">join</button>
+          <div id="callLoaderBox">
+            <div class="circleLoader"></div>
+            <p>Making a call</p>
+          </div>
+
+          <div style="display: none;" id="callInputBox">
+            <p>Copy the call id and join from another device.</p>
+            <input type="text" id="callInput" />
+            <button id="copyButtonCall">Copy</button>
+            <a id="callUrl" href=""></a>
+          </div>
+
         </div>
+        <!-- make call -->
 
-        <div id="tab2" class="tabcontent">
-          <h2>Join a call</h2>
+        <!-- join call -->
+        <div style="display: none;" id="joinBox">
           <input type="text" id="JoinInput" />
           <button id="joinButton">join</button>
         </div>
-
-        <div id="videos" class="videos">
-          <video id="localVideo" autoplay muted></video>
-          <video id="remoteVideo" autoplay></video>
-
-          <div class="buttons">
-            <button id="muteButton">mute</button>
-            <button id="hangupButton">Hang Up</button>
-          </div>
-        </div>
+        <!-- join call -->
 
       </div>
+
+
+      <!-- video Screen -->
+      <div id="videos" class="videos">
+        <video id="localVideo" autoplay muted></video>
+        <video id="remoteVideo" autoplay></video>
+
+        <div class="buttons">
+          <button class="btn" id="muteButton">Mute</button>
+          <button class="btn" id="hideVideoButtoon">Hide</button>
+          <button class="btn" id="hangupButton">Hang Up</button>
+        </div>
+      </div>
+      <!-- video Screen -->
+
+    </div>
     </div>
     <script type="module" src="./main.js"></script>
   </body>
