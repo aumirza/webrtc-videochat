@@ -39,7 +39,7 @@ const hideVideoButtoon = document.getElementById('hideVideoButtoon')
 
 
 const showVideo = async () => {
-    videosScreen.style.display = 'block'
+    videosScreen.style.display = 'flex'
 }
 
 const createCall = async () => {
@@ -82,7 +82,13 @@ const hangupCall = () => {
             track.stop()
         })
     }
+
     videosScreen.style.display = 'none'
+
+    callBox.style.display = 'none'
+    joinBox.style.display = 'none'
+    actionButtons.style.display = 'flex'
+
 
     // localStream = null
     // remoteStream = null
@@ -103,13 +109,14 @@ muteButton.onclick = () => {
     mute = localStream.getAudioTracks()[0].enabled
     localStream.getAudioTracks()[0].enabled = !(mute)
     muteButton.innerText = mute ? 'Unmute' : 'Mute'
+    muteButton.classList.toggle('active', mute)
 }
 
 hideVideoButtoon.onclick = () => {
     hideVideo = localStream.getVideoTracks()[0].enabled
     localStream.getVideoTracks()[0].enabled = !(hideVideo)
     hideVideoButtoon.innerText = hideVideo ? 'Hide' : 'Show'
-
+    hideVideoButtoon.classList.toggle('active', hideVideo)
 }
 
 
